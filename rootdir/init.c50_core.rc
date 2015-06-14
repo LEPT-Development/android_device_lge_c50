@@ -1,0 +1,102 @@
+# Copyright (c) 2009-2012, 2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of The Linux Foundation nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+import /init.c50_product.rc
+import /init.lge.svelte.rc
+import /init.lge.sensors.rc
+# BT_S : [CONBT-720] BDADDR_LOADER
+import /init.lge.bt_vendor.rc
+# BT_E : [CONBT-720] BDADDR_LOADER
+
+
+on init
+
+#Touch_LPWG
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_data
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_data
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chown system lgkeyguard /sys/devices/virtual/input/lge_touch/keyguard
+    chmod 664 /sys/devices/virtual/input/lge_touch/keyguard
+    chown system system /sys/devices/virtual/input/lge_touch/dsv
+    chmod 600 /sys/devices/virtual/input/lge_touch/dsv
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_debug
+    chmod 600 /sys/devices/virtual/input/lge_touch/lpwg_debug
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_fail_reason
+    chmod 600 /sys/devices/virtual/input/lge_touch/lpwg_fail_reason
+    chown system system /sys/devices/virtual/input/lge_touch/sensor_value
+    chmod 600 /sys/devices/virtual/input/lge_touch/sensor_value
+    chown system system /sys/devices/virtual/input/lge_touch/enable_sensor_interlock
+    chmod 600 /sys/devices/virtual/input/lge_touch/enable_sensor_interlock
+
+#Proximity_sensor
+    chown system system /sys/devices/virtual/input/lge_proximity/ppcount
+    chmod 664 /sys/devices/virtual/input/lge_proximity/ppcount
+
+service sensord /system/bin/sensord
+    user system
+    group system
+    class late_start
+    oneshot
+
+# LG RCT(Rooting Check Tool)
+service rctd /system/bin/rctd
+   class late_start
+   user root
+   group root
+
+service atd /system/bin/atd /dev/ttyGS0 /dev/smd0
+    socket atd stream 0660 system inet
+    class main
+
+#LGE_CHANGE_S, restart qcamerasvr when restarting mediaserver and servicemanager, yousung.kang@lge.com
+    on property:init.svc.media=restarting
+        restart qcamerasvr
+    on property:init.svc.servicemanager=restarting
+        restart qcamerasvr
+#LGE_CHANGE_E, restart qcamerasvr when restarting mediaserver and servicemanager, yousung.kang@lge.com
+
+service chcon_keystore /system/bin/sh /system/etc/init.c50_chcon_keystore.sh
+    disabled
+    oneshot
+    seclabel u:r:keystore:s0
+
+on boot
+    lge_chcon_recursive /data/property u:object_r:property_data_file:s0
+    lge_chcon_recursive /data/security u:object_r:security_file:s0
+    start chcon_keystore
+
+service write_event_log /system/bin/write_event_log 55000
+    user system
+    group system
+    disabled
+    oneshot
+
+on property:init.svc.bootanim-stopped
+    start usf-post-boot
+    start write_event_log
+
