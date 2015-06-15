@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+
 # Header path
 
 TARGET_SPECIFIC_HEADER_PATH += device/lge/c50/include
@@ -31,7 +32,8 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno306
 # Vendor Init
 
 TARGET_UNIFIED_DEVICE := true
-TARGET_INIT_VENDOR_LIB := libinit_msm
+#TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := device/lge/c50/rootdir/init_c50.c
 
 # Architecture
 
@@ -129,7 +131,7 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 TARGET_POWERHAL_VARIANT := qcom
 TARGET_USES_CPU_BOOST_HINT := true
 
-TARGET_HW_DISK_ENCRYPTION := true
+#TARGET_HW_DISK_ENCRYPTION := true
 
 # Hardware tunables framework
 
@@ -185,9 +187,10 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 
 BOARD_USES_QC_TIME_SERVICES := true
 
+
 # SELinux policies
 
-include device/qcom/sepolicy/sepolicy.mk
+-include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += \
         device/lge/c50/sepolicy

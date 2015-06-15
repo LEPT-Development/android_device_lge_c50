@@ -18,7 +18,7 @@
 # $(call inherit-product, device/sample/products/backup_overlay.mk)
 
 # Get the prebuilt list of APNs
-$(call inherit-product, vendor/omni/config/gsm.mk)
+#$(call inherit-product, vendor/omni/config/gsm.mk)
 
 # Inherit from the common Open Source product configuration
 
@@ -27,6 +27,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 # Inherit from our custom product configuration
 
 $(call inherit-product, vendor/cm/config/common.mk)
+
+$(call inherit-product-if-exists, vendor/lge/c50/c50-vendor.mk)
 
 PRODUCT_PACKAGES += \
     charger_res_images \
@@ -57,7 +59,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    device/lge/msm8610-common/prebuilt/etc/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml
+    device/lge/c50/prebuilt/etc/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml
 
 # Configs
 
@@ -95,6 +97,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/lge/c50/rootdir/init.class_main.sh:root/init.class_main.sh \
+    device/lge/c50/rootdir/init.c50.rc:root/init.c50.rc \
     device/lge/c50/rootdir/init.lge.early.rc:root/init.lge.early.rc \
     device/lge/c50/rootdir/init.lge.log.rc:root/init.lge.log.rc \
     device/lge/c50/rootdir/init.lge.rc:root/init.lge.rc \
@@ -113,7 +116,11 @@ PRODUCT_COPY_FILES += \
     device/lge/c50/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
     device/lge/c50/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
     device/lge/c50/rootdir/ueventd.c50.rc:root/ueventd.c50.rc \
-    device/lge/c50/prebuilt/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh 
+    device/lge/c50/prebuilt/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    device/lge/c50/rootdir/init.c50_core.rc:root/init.c50_core.rc \
+    device/lge/c50/rootdir/init.lge.cmm.usb.sh:root/init.lge.cmm.usb.sh \
+    device/lge/c50/rootdir/sepolicy:root/sepolicy 
+
 
 # TWRP fstab
 
@@ -416,7 +423,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
-$(call inherit-product, vendor/lge/c50/c50-vendor.mk)
+#$(call inherit-product, vendor/lge/c50/c50-vendor.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/vendor/lib/libril-qc-qmi-1.so \
