@@ -96,13 +96,8 @@ PRODUCT_COPY_FILES += \
 # Ramdisk
 
 PRODUCT_COPY_FILES += \
-    device/lge/c50/rootdir/init.class_main.sh:root/init.class_main.sh \
     device/lge/c50/rootdir/init.c50.rc:root/init.c50.rc \
-    device/lge/c50/rootdir/init.lge.early.rc:root/init.lge.early.rc \
-    device/lge/c50/rootdir/init.lge.log.rc:root/init.lge.log.rc \
     device/lge/c50/rootdir/init.lge.rc:root/init.lge.rc \
-    device/lge/c50/rootdir/init.mdm.sh:root/init.mdm.sh \
-    device/lge/c50/rootdir/init.usb.rc:root/init.usb.rc \
     device/lge/c50/rootdir/init.qcom.rc:root/init.qcom.rc \
     device/lge/c50/rootdir/init.lge.usb.rc:root/init.lge.usb.rc \
     device/lge/c50/rootdir/init.c50_product.rc:root/init.c50_product.rc \
@@ -110,15 +105,14 @@ PRODUCT_COPY_FILES += \
     device/lge/c50/rootdir/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
     device/lge/c50/rootdir/init.lge.usb.sh:root/init.lge.usb.sh \
     device/lge/c50/rootdir/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    device/lge/c50/rootdir/init.qcom.factory.sh:root/init.qcom.factory.sh \
-    device/lge/c50/rootdir/init.lge.svelte.rc:root/init.lge.svelte.rc \
     device/lge/c50/rootdir/init.qcom.sh:root/init.qcom.sh \
-    device/lge/c50/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
-    device/lge/c50/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
     device/lge/c50/rootdir/ueventd.c50.rc:root/ueventd.c50.rc \
-    device/lge/c50/prebuilt/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
     device/lge/c50/rootdir/init.c50_core.rc:root/init.c50_core.rc \
-    device/lge/c50/rootdir/init.lge.cmm.usb.sh:root/init.lge.cmm.usb.sh \
+    device/lge/c50/rootdir/fstab.c50:root/fstab.c50 \
+    device/lge/c50/rootdir/init.epsilon0c_core.rc:root/init.epsilon0c_core.rc \
+    device/lge/c50/rootdir/init.lge.sensors.rc:root/init.lge.sensors.rc \
+    device/lge/c50/rootdir/init.target.rc:root/init.target.rc \
+    device/lge/c50/rootdir/set_emmc_size.sh/set_emmc_size.sh \
     device/lge/c50/rootdir/sepolicy:root/sepolicy 
 
 
