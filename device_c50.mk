@@ -113,7 +113,6 @@ PRODUCT_COPY_FILES += \
     device/lge/c50/rootdir/init.lge.sensors.rc:root/init.lge.sensors.rc \
     device/lge/c50/rootdir/init.target.rc:root/init.target.rc \
     device/lge/c50/rootdir/set_emmc_size.sh/set_emmc_size.sh \
-    device/lge/c50/rootdir/sepolicy:root/sepolicy 
 
 
 # TWRP fstab
@@ -497,9 +496,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # CmUpdater
 #PRODUCT_PROPERTY_OVERRIDES += \
 #cm.updater.uri=
-
-# Kernel inline build
-
-TARGET_KERNEL_CONFIG := c50_mpcs_us_defconfig
-TARGET_VARIANT_CONFIG := c50_mpcs_us_defconfig
-TARGET_SELINUX_CONFIG := c50_mpcs_us_defconfig

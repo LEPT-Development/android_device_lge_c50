@@ -61,6 +61,7 @@ TARGET_PREBUILT_KERNEL := device/lge/c50/kernel
 
 TARGET_KERNEL_SOURCE := kernel/lge/c50
 TARGET_KERNEL_CONFIG := c50_mpcs_us_defconfig
+TARGET_SELINUX_CONFIG := c50_mpcs_us_defconfig
 
 # Storage
 
