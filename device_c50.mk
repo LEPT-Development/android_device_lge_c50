@@ -95,24 +95,24 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 
-PRODUCT_COPY_FILES += \
-    device/lge/c50/rootdir/init.c50.rc:root/init.c50.rc \
-    device/lge/c50/rootdir/init.lge.rc:root/init.lge.rc \
-    device/lge/c50/rootdir/init.qcom.rc:root/init.qcom.rc \
-    device/lge/c50/rootdir/init.lge.usb.rc:root/init.lge.usb.rc \
-    device/lge/c50/rootdir/init.c50_product.rc:root/init.c50_product.rc \
-    device/lge/c50/rootdir/init.lge.bt_vendor.rc:root/init.lge.bt_vendor.rc \
-    device/lge/c50/rootdir/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
-    device/lge/c50/rootdir/init.lge.usb.sh:root/init.lge.usb.sh \
-    device/lge/c50/rootdir/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    device/lge/c50/rootdir/init.qcom.sh:root/init.qcom.sh \
-    device/lge/c50/rootdir/ueventd.c50.rc:root/ueventd.c50.rc \
-    device/lge/c50/rootdir/init.c50_core.rc:root/init.c50_core.rc \
-    device/lge/c50/rootdir/fstab.c50:root/fstab.c50 \
-    device/lge/c50/rootdir/init.epsilon0c_core.rc:root/init.epsilon0c_core.rc \
-    device/lge/c50/rootdir/init.lge.sensors.rc:root/init.lge.sensors.rc \
-    device/lge/c50/rootdir/init.target.rc:root/init.target.rc \
-    device/lge/c50/rootdir/set_emmc_size.sh/set_emmc_size.sh \
+PRODUCT_PACKAGES += \
+    init.c50.rc \
+    init.lge.rc \
+    init.qcom.rc \
+    init.lge.usb.rc \
+    init.c50_product.rc \
+    init.lge.bt_vendor.rc \
+    init.qcom.class_core.sh \
+    init.lge.usb.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.sh \
+    ueventd.c50.rc \
+    init.c50_core.rc \
+    fstab.c50 \
+    init.epsilon0c_core.rc \
+    init.lge.sensors.rc \
+    init.target.rc \
+    set_emmc_size.sh 
 
 
 # TWRP fstab
