@@ -30,6 +30,10 @@ $(call inherit-product, vendor/cm/config/common.mk)
 
 $(call inherit-product-if-exists, vendor/lge/c50/c50-vendor.mk)
 
+# Overlay
+
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
 PRODUCT_PACKAGES += \
     charger_res_images \
     charger
@@ -60,6 +64,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     device/lge/c50/prebuilt/etc/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
 
 # Configs
 
@@ -93,27 +100,41 @@ PRODUCT_COPY_FILES += \
     device/lge/c50/prebuilt/etc/izat.conf:system/etc/izat.conf \
     device/lge/c50/prebuilt/etc/quipc.conf:system/etc/quipc.conf
 
+# Screen density
+
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+
 # Ramdisk
 
 PRODUCT_COPY_FILES += \
-    device/lge/c50/rootdir/etc/init.c50.rc:root/init.c50.rc \
-    device/lge/c50/rootdir/etc/init.lge.rc:root/init.lge.rc \
-    device/lge/c50/rootdir/etc/init.qcom.rc:root/init.qcom.rc \
-    device/lge/c50/rootdir/etc/init.lge.usb.rc:root/init.lge.usb.rc \
-    device/lge/c50/rootdir/etc/init.c50_product.rc:root/init.c50_product.rc \
-    device/lge/c50/rootdir/etc/init.lge.bt_vendor.rc:root/init.lge.bt_vendor.rc \
-    device/lge/c50/rootdir/etc/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
-    device/lge/c50/rootdir/etc/init.lge.usb.sh:root/init.lge.usb.sh \
-    device/lge/c50/rootdir/etc/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
-    device/lge/c50/rootdir/etc/init.qcom.sh:root/init.qcom.sh \
-    device/lge/c50/rootdir/etc/ueventd.c50.rc:root/ueventd.c50.rc \
-    device/lge/c50/rootdir/etc/init.c50_core.rc:root/init.c50_core.rc \
-    device/lge/c50/rootdir/etc/fstab.c50:root/fstab.c50 \
-    device/lge/c50/rootdir/etc/init.epsilon0c_core.rc:root/init.epsilon0c_core.rc \
-    device/lge/c50/rootdir/etc/init.lge.sensors.rc:root/init.lge.sensors.rc \
-    device/lge/c50/rootdir/etc/init.target.rc:root/init.target.rc \
-    device/lge/c50/rootdir/etc/set_emmc_size.sh:root/set_emmc_size.sh \
-    device/lge/c50/rootdir/etc/init.lge.svelte.rc:root/init.lge.svelte.rc 
+    device/lge/c50/rootdir/init.class_main.sh:root/init.class_main.sh \
+    device/lge/c50/rootdir/init.c50.rc:root/init.c50.rc \
+    device/lge/c50/rootdir/init.lge.early.rc:root/init.lge.early.rc \
+    device/lge/c50/rootdir/init.lge.log.rc:root/init.lge.log.rc \
+    device/lge/c50/rootdir/init.lge.rc:root/init.lge.rc \
+    device/lge/c50/rootdir/init.mdm.sh:root/init.mdm.sh \
+    device/lge/c50/rootdir/init.usb.rc:root/init.usb.rc \
+    device/lge/c50/rootdir/init.qcom.rc:root/init.qcom.rc \
+    device/lge/c50/rootdir/init.lge.usb.rc:root/init.lge.usb.rc \
+    device/lge/c50/rootdir/init.c50_product.rc:root/init.c50_product.rc \
+    device/lge/c50/rootdir/init.lge.bt_vendor.rc:root/init.lge.bt_vendor.rc \
+    device/lge/c50/rootdir/init.qcom.class_core.sh:root/init.qcom.class_core.sh \
+    device/lge/c50/rootdir/init.lge.usb.sh:root/init.lge.usb.sh \
+    device/lge/c50/rootdir/init.qcom.early_boot.sh:root/init.qcom.early_boot.sh \
+    device/lge/c50/rootdir/init.qcom.factory.sh:root/init.qcom.factory.sh \
+    device/lge/c50/rootdir/init.lge.svelte.rc:root/init.lge.svelte.rc \
+    device/lge/c50/rootdir/init.qcom.sh:root/init.qcom.sh \
+    device/lge/c50/rootdir/init.qcom.ssr.sh:root/init.qcom.ssr.sh \
+    device/lge/c50/rootdir/init.qcom.syspart_fixup.sh:root/init.qcom.syspart_fixup.sh \
+    device/lge/c50/rootdir/ueventd.c50.rc:root/ueventd.c50.rc \
+    device/lge/c50/prebuilt/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    device/lge/c50/rootdir/init.c50_core.rc:root/init.c50_core.rc \
+    device/lge/c50/rootdir/init.lge.cmm.usb.sh:root/init.lge.cmm.usb.sh \
+    device/lge/c50/rootdir/sepolicy:root/sepolicy 
+
+$(call inherit-product, frameworks/native/build/phone-hdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
 
 # TWRP fstab
@@ -128,6 +149,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
+    audiod \
     libaudio-resampler \
     libaudioparameter \
     libqcomvisualizer \
@@ -145,6 +167,12 @@ PRODUCT_PACKAGES += \
     arec \
     alsaucm_test
 
+# Connectivity Engine support
+
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
+
 # Misc
 
 PRODUCT_PACKAGES += \
@@ -154,7 +182,7 @@ PRODUCT_PACKAGES += \
     tcpdump \
     libxml2
 
-# Misc
+# USB
 
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -189,6 +217,8 @@ PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf \
     wpa_supplicant_overlay.conf \
     libwcnss_qmi \
+    libwpa_client \
+    wcnss_service \
     dhcpcd.conf \
     hostapd \
     wpa_supplicant \
@@ -231,6 +261,7 @@ PRODUCT_PACKAGES += \
     keystore.msm8916 \
     lights.msm8916 \
     memtrack.msm8916 \
+    libtinyxml \
     power.msm8916
 
 # QRNG
@@ -292,6 +323,9 @@ PRODUCT_PACKAGES += \
     libdashplayer \
     qcmediaplayer
 
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer
+
 # Filesystem management tools
 
 PRODUCT_PACKAGES += \
@@ -299,6 +333,12 @@ PRODUCT_PACKAGES += \
     e2fsck \
     resize2fs \
     setup_fs
+
+# IRQ balance
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/vendor/etc/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
+
 
 #wifi
 
@@ -497,3 +537,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # CmUpdater
 #PRODUCT_PROPERTY_OVERRIDES += \
 #cm.updater.uri=
+
+# Kernel inline build
+
+TARGET_KERNEL_CONFIG := c50_mpcs_us_defconfig
+TARGET_VARIANT_CONFIG := c50_mpcs_us_defconfig
+TARGET_SELINUX_CONFIG := c50_mpcs_us_defconfig
