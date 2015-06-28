@@ -532,8 +532,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #PRODUCT_PROPERTY_OVERRIDES += \
 #cm.updater.uri=
 
-# Kernel inline build
 
-TARGET_KERNEL_CONFIG := c50_mpcs_us_defconfig
-TARGET_VARIANT_CONFIG := c50_mpcs_us_defconfig
-TARGET_SELINUX_CONFIG := c50_mpcs_us_defconfig
