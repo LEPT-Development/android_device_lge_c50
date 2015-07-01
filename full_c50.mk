@@ -14,17 +14,15 @@
 # limitations under the License.
 #
 
-# This contains the module build definitions for the hardware-specific
-# components for this device.
-#
-# As much as possible, those components should be built unconditionally,
-# with device-specific names to avoid collisions, to avoid device-specific
-# bitrot and build breakages. Building a component unconditionally does
-# *not* include it on all devices, so it is safe even with hardware-specific
-# components.
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-LOCAL_PATH := $(call my-dir)
+# Inherit from h631 device
+$(call inherit-product, device/lge/c50/device.mk)
 
-ifneq ($(filter c50,$(TARGET_DEVICE)),)
-include $(call all-makefiles-under,$(LOCAL_PATH))
-endif
+# Set those variables here to overwrite the inherited values.
+PRODUCT_DEVICE := c50
+PRODUCT_NAME := full_c50
+PRODUCT_BRAND := lge
+PRODUCT_MODEL := LG-C50
+PRODUCT_MANUFACTURER := LGE

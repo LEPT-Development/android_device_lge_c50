@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
- * Copyright (C) 2012 The CyanogenMod Project <http://www.cyanogenmod.org>
+ * Copyright 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +17,14 @@
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
 
-#define BTM_DEF_LOCAL_NAME   "LG Leon LTE"
-#define BTA_DISABLE_DELAY 1000 /* in milliseconds */
-#define BLUETOOTH_QCOM_SW TRUE
-#define BLUETOOTH_QCOM_LE_INTL_SCAN TRUE
-#define BTC_INCLUDED TRUE
+#define BLUETOOTH_QTI_SW TRUE
+
+#define BTM_DEF_LOCAL_NAME   "LG H631"
+// Disables read remote device feature
+#define BTA_SKIP_BLE_READ_REMOTE_FEAT TRUE
+#define MAX_L2CAP_CHANNELS    14
+// skips conn update at conn completion
+#define BTA_BLE_SKIP_CONN_UPD  TRUE
+// Enables interleaved scan
+#define BTA_HOST_INTERLEAVE_SEARCH TRUE
 #endif
